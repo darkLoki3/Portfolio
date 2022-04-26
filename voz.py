@@ -1,8 +1,11 @@
+#from winsound import PlaySound
 import speech_recognition as sr
 import pyttsx3
 from gtts import gTTS
-from playsound import playsound
+import requests
+import playsound
 import os
+import subprocess
 
 #engine = pyttsx3.init()
 #engine.setProperty('voice', 'Brazil')
@@ -16,40 +19,44 @@ import os
 #    engine.say(text)
 #    engine.runAndWait()
 
-def fala(text):
-    tts = gTTS(text=text, lang='pt-BR')
-    nomearquivo = "/home/pi/Documentos/mypython/Python/voice.mp3"
-    tts.save(nomearquivo)
-    playsound(nomearquivo)
+def fala(output):
+    num=0
+    print(output)
+    num+=1
+    response=gTTS(text=output,lang='pt-BR')
+    nomearquivo = str(num)+".mp3"
+    response.save(nomearquivo)
+    os.system("mpg123 " + nomearquivo)
+    os.remove(nomearquivo)
 
 
 def get_audio():
-    mic = sr.Recognizer()
+    input = sr.Recognizer()
     with sr.Microphone() as source:
         print(".")
-        mic.adjust_for_ambient_noise(source, duration=0.5)
-        mic.pause_threshold = 1
-        Audio = mic.listen(source, phrase_time_limit=5)
-        Data = ""
+        input.adjust_for_ambient_noise(source, duration=0.5)
+        input.pause_threshold = 1
+        audio = input.listen(source, phrase_time_limit=5)
+        query = ""
         try:
-            escuta = mic.recognize_google(Audio, language='pt-BR')
-            Data = escuta.lower()
-            if not 'Tchau!' in Data or 'Pare' in Data:
-                fala(Data)
+            escuta = input.recognize_google(audio, language='pt-BR')
+            query = escuta.lower()
+            if not 'tchau!' in query or 'pare' in query:
+                fala(query)
             #engine.say("Frase dita por você é: " + Data)
         except sr.UnknownValueError:
             fala("Não entendi, pode repetir")
             return "None"
-        return Data
+        return query
 
-
+""" 
 def Ola():
     fala("Olá! Tudo bem com você?")
     fala(" Vamos ser amigos?")
     return
+ """
 
-
-def responde(data):
+""" def responde(data):
 
     ouvindo = True
     Ola()
@@ -69,8 +76,29 @@ def responde(data):
 
     # elif nome in data:
     #    escutando
-    return
+    return """
 
-Ola()
-frase = get_audio()
-responde(frase)
+if __name__=='__main__':
+    fala("Olá! Tudo bem com você?")
+    fala("Vamos ser amigos?")
+    while 1:
+        frase = get_audio().lower()
+        if frase==0:
+            continue
+        if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase):
+            fala("Até mais tarde!")
+            break
+        if 'sim' in str(frase):
+            fala("Primeiro, me diga seu nome?")
+            continue
+        if 'marcos' in str(frase) or 'rafael' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
+            nome = frase
+            fala("Agora me conte quantos anos você tem?")
+            continue
+        if '5 anos' in str(frase) or '6 anos' in str(frase):
+            idade = frase
+            fala("Que legal! Você quer fazer uma experiência comigo?")
+            continue
+        if 'vamos' in str(frase):
+            fala("Então vamos lá: Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
