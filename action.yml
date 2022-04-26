@@ -1,2 +1,5 @@
 - name: First interaction
   uses: actions/first-interaction@v1.1.0
+  
+  - name: Jira issue from TODO
+  uses: atlassian/gajira-todo@v2.0.1
