@@ -1,3 +1,4 @@
+#fim da tarefa ||IA-10 do jira
 #from winsound import PlaySound
 import speech_recognition as sr
 import pyttsx3
@@ -20,6 +21,11 @@ import subprocess
 #    engine.runAndWait()
 
 def fala(output):
+    """função fala
+
+    Args:
+        output (string): pega o texto falado pelo microfone e converte em fala
+    """
     num=0
     print(output)
     num+=1
@@ -27,13 +33,19 @@ def fala(output):
     nomearquivo = str(num)+".mp3"
     response.save(nomearquivo)
     os.system("mpg123 " + nomearquivo)
+    print(str(nomearquivo))
     os.remove(nomearquivo)
 
 
 def get_audio():
+    """get_audio
+
+    Returns:
+        dicionário: configura o microfone e escuta o usuário
+    """
     input = sr.Recognizer()
     with sr.Microphone() as source:
-        print(".")
+        print("Escutando...")
         input.adjust_for_ambient_noise(source, duration=0.5)
         input.pause_threshold = 1
         audio = input.listen(source, phrase_time_limit=5)
@@ -43,6 +55,7 @@ def get_audio():
             query = escuta.lower()
             if not 'tchau!' in query or 'pare' in query:
                 fala(query)
+                print(query)
             #engine.say("Frase dita por você é: " + Data)
         except sr.UnknownValueError:
             fala("Não entendi, pode repetir")
@@ -79,13 +92,15 @@ def Ola():
     return """
 
 if __name__=='__main__':
+    """principal
+    """
     fala("Olá! Tudo bem com você?")
     fala("Vamos ser amigos?")
     while 1:
         frase = get_audio().lower()
         if frase==0:
             continue
-        if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase):
+        if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase) or 'não' in str(frase):
             fala("Até mais tarde!")
             break
         if 'sim' in str(frase):
@@ -97,8 +112,14 @@ if __name__=='__main__':
             continue
         if '5 anos' in str(frase) or '6 anos' in str(frase):
             idade = frase
-            fala("Que legal! Você quer fazer uma experiência comigo?")
+            fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
             continue
         if 'vamos' in str(frase):
             fala("Então vamos lá: Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
+        else:
+            print("Primeiro, me diga seu nome?")
+            print("Agora conte-me quantos anos você tem?")
+            print("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+            print("Então vamos lá: Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
             break
