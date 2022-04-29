@@ -48,7 +48,7 @@ def get_audio():
         print("Escutando...")
         input.adjust_for_ambient_noise(source, duration=0.5)
         input.pause_threshold = 1
-        audio = input.listen(source, phrase_time_limit=5)
+        audio = input.listen(source, phrase_time_limit=3)
         query = ""
         try:
             escuta = input.recognize_google(audio, language='pt-BR')
