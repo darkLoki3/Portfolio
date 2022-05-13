@@ -5,8 +5,7 @@ import subprocess
 import speech_recognition as sr
 from gtts import gTTS
 
-# from Assistente.sensor import sensor
-from Assistente.rosto import rosto
+from Assistente.rosto.rosto import window
 from Assistente.sensor import sensor
 
 
@@ -23,7 +22,7 @@ def fala(resultado):
     nomearquivo = str(num) + ".mp3"
     response.save(nomearquivo)
     subprocess.call("mpg123 " + nomearquivo, shell=False)
-    rosto.falar()
+    window.falar()
     print(str(nomearquivo))
     os.remove(nomearquivo)
 
@@ -52,6 +51,7 @@ def get_audio():
 if __name__ == '__main__':
     """principal
     """
+    window.dorme()
     while sensor() <= 60.0:
         fala("Olá! Tudo bem com você?")
         fala("Vamos ser amigos?")
@@ -62,14 +62,18 @@ if __name__ == '__main__':
                 break
             case 'sim':
                 fala("Primeiro, me diga seu nome?")
+                window.pisca()
                 continue
             case 'marcos' | 'rafael' | 'augusto' | 'sabrina' | 'alexandra':
                 fala("Agora me conte quantos anos você tem?")
+                window.olhos()
                 continue
             case '5 anos' | '6 anos' | '7 anos' | '8 anos' | '9 anos':
                 fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+                window.choque()
                 continue
             case 'vamos':
                 fala("Então vamos lá:")
                 fala("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+                window.pisca()
                 break

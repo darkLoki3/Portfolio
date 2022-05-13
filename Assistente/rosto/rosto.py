@@ -1,51 +1,62 @@
-from PIL import Image
+import sys
 
-imageObject = Image.open("falando.gif")  # já foi
-image2 = Image.open("chocado.gif")  # já foi
-image3 = Image.open("erro.gif")  # já foi
-image4 = Image.open("espremendoolho.gif")  # já foi
-image5 = Image.open("piscando.gif")  # já foi
-image6 = Image.open("dormindo.gif")  # já foi
+from PySide6.QtGui import QIcon, QMovie
+from PySide6.QtWidgets import QApplication, QWidget, QLabel
 
 
-def falar():
-    global imageObject
-    # Os gifs possuem em sua maioria 2 frames, enquanto o de fala possuem 8 frames e o dormindo tem 3 frames
-    for frame in range(0, imageObject.n_frames):
-        imageObject.seek(frame)
-        imageObject.show()
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.setGeometry(800, 800, 480, 480)
+        self.setWindowTitle("Python GUI Window")
+        self.setWindowIcon(QIcon('erro.gif'))
+        self.falar()
+
+    def falar(self):
+        label = QLabel(self)
+        movie = QMovie('falando.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
+
+    def dorme(self):
+        label = QLabel(self)
+        movie = QMovie('dormindo.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
+
+    def choque(self):
+        label = QLabel(self)
+        movie = QMovie('chocado.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
+
+    def olhos(self):
+        label = QLabel(self)
+        movie = QMovie('espremendoolho.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
+
+    def pisca(self):
+        label = QLabel(self)
+        movie = QMovie('piscando.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
+
+    def error(self):
+        label = QLabel(self)
+        movie = QMovie('erro.gif')
+        movie.setSpeed(500)
+        label.setMovie(movie)
+        movie.start()
 
 
-def dorme():
-    global image6
-    for frame in range(0, image6.n_frames):
-        image6.seek(frame)
-        image6.show()
-
-
-def pisca():
-    global image5
-    for frame in range(0, image5.n_frames):
-        image5.seek(frame)
-        image5.show()
-
-
-def erro():
-    global image3
-    for frame in range(0, image3.n_frames):
-        image3.seek(frame)
-        image3.show()
-
-
-def choque():
-    global image2
-    for frame in range(0, image2.n_frames):
-        image2.seek(frame)
-        image2.show()
-
-
-def espreme():
-    global image4
-    for frame in range(0, image4.n_frames):
-        image4.seek(frame)
-        image4.show()
+app = QApplication([])
+window = Window()
+window.show()
+sys.exit(app.exec())
