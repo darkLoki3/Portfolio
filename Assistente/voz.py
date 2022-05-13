@@ -1,10 +1,12 @@
-# //{{fim da tarefa ||IA-10 do jira}}
+# | fim da tarefa ||IA-10 do jira}}
 import os
 import subprocess
 
 import speech_recognition as sr
 from gtts import gTTS
 
+# from Assistente.sensor import sensor
+from Assistente.rosto import rosto
 from Assistente.sensor import sensor
 
 
@@ -21,6 +23,7 @@ def fala(resultado):
     nomearquivo = str(num) + ".mp3"
     response.save(nomearquivo)
     subprocess.call("mpg123 " + nomearquivo, shell=False)
+    rosto.falar()
     print(str(nomearquivo))
     os.remove(nomearquivo)
 
