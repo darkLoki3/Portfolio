@@ -1,2 +1,9 @@
 # Portfolio
-Aqui é o local onde irão ficar todos os códigos já criados
+
+Aqui é o local onde ficarão todos os códigos já criados
+
+ ## Pastas de trabalho
+* Estudo de programação
+
+ ## Trabalho
+* Assistente virtual

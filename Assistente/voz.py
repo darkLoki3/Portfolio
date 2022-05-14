@@ -1,15 +1,13 @@
-# fim da tarefa ||IA-10 do jira
-import speech_recognition as sr
-from gtts import gTTS
-import requests
+# | fim da tarefa ||IA-10 do jira}}
 import os
 import subprocess
 
+import speech_recognition as sr
+from gtts import gTTS
 
-# engine = pyttsx3.init()
-# engine.setProperty('voice', 'Brazil')
-# engine.setProperty('rate', 178)
-# engine.setProperty('volume', 1.)
+from Assistente.rosto.rosto import window
+from Assistente.sensor import sensor
+
 
 def fala(resultado):
     """função fala
@@ -24,6 +22,7 @@ def fala(resultado):
     nomearquivo = str(num) + ".mp3"
     response.save(nomearquivo)
     subprocess.call("mpg123 " + nomearquivo, shell=False)
+    window.falar()
     print(str(nomearquivo))
     os.remove(nomearquivo)
 
@@ -39,30 +38,32 @@ def get_audio():
         print("Escutando...")
         mic.adjust_for_ambient_noise(source, duration=0.5)
         mic.pause_threshold = 1
-        audio = mic.listen(source, phrase_time_limit=5)
+        audio = mic.listen(source, phrase_time_limit=3)
         try:
             escuta = mic.recognize_google(audio, language='pt-BR')
-            query = escuta.lower()
+            data = escuta.lower()
         except sr.UnknownValueError:
             fala("Não entendi, pode repetir")
             return "None"
-        return query
+        return data
 
 
 if __name__ == '__main__':
     """principal
     """
-    fala("Olá! Tudo bem com você?")
-    fala("Vamos ser amigos?")
-    while 1:
-        frase = get_audio().lower()
+    window.dorme()
+    while sensor() <= 60.0:
         if frase == 0:
             continue
         if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase) or 'não' in str(frase):
+            window.pisca()
             fala("Até mais tarde!")
             break
         if 'sim' in str(frase):
             fala("Primeiro, me diga seu nome?")
+            window.olhos()
+            window.pisca()
+            window.choque()
             continue
         if 'marcos' in str(frase) or 'rafael' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
             nome = frase

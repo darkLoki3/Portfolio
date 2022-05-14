@@ -1,26 +1,24 @@
-# fim da tarefa ||IA-10 do jira
-import speech_recognition as sr
-from gtts import gTTS
+# //{{fim da tarefa ||IA-10 do jira}}
 import os
 import subprocess
 
-
-# engine = pyttsx3.init()
-# engine.setProperty('voice', 'Brazil')
-# engine.setProperty('rate', 178)
-# engine.setProperty('volume', 1.)
+import speech_recognition as sr
+from gtts import gTTS
 
 
-def fala(output):
+from Assistente.sensor import sensor
+
+
+def fala(resultado):
     """função fala
 
     Args:
-        output (string): pega o texto falado pelo microfone e converte em fala
+        resultado (string): pega o texto falado pelo microfone e converte em fala
     """
     num = 0
-    print(output)
+    print(resultado)
     num += 1
-    response = gTTS(text=output, lang='pt-BR')
+    response = gTTS(text=resultado, lang='pt-BR')
     nomearquivo = str(num) + ".mp3"
     response.save(nomearquivo)
     subprocess.call("mpg123 " + nomearquivo, shell=False)
@@ -39,23 +37,10 @@ def get_audio():
         print("Escutando...")
         mic.adjust_for_ambient_noise(source, duration=0.5)
         mic.pause_threshold = 1
-        audio = mic.listen(source, phrase_time_limit=5)
-        try:
-            escuta = mic.recognize_google(audio, language='pt-BR')
-            data = escuta.lower()
-        except sr.UnknownValueError:
-            fala("Não entendi, pode repetir")
-            return "None"
-        return data
-
-
-if '__main__' == __name__:
-    """função principal
-    """
-    fala("Olá! Tudo bem com você?")
-    fala("Vamos ser amigos?")
-    while 1:
-        frase = get_audio().lower()
+        audio = mic.listen(source, phrase_time_limit=3)
+        
+if __name__ == '__main__':
+    """principal"""
         if frase == 0:
             continue
         if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase) or 'não' in str(frase):
