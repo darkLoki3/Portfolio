@@ -11,35 +11,39 @@ class Window(QWidget):
         self.setGeometry(800, 800, 480, 480)
         self.setWindowTitle("Python GUI Window")
         self.setWindowIcon(QIcon('erro.gif'))
-        self.falar()
+        self.dorme()
 
     def falar(self):
         label = QLabel(self)
         movie = QMovie('falando.gif')
         movie.setSpeed(500)
         label.setMovie(movie)
-        movie.start()
+        while True:
+            movie.start()
 
     def dorme(self):
         label = QLabel(self)
         movie = QMovie('dormindo.gif')
         movie.setSpeed(500)
         label.setMovie(movie)
-        movie.start()
+        while True:
+            movie.start()
 
     def choque(self):
         label = QLabel(self)
         movie = QMovie('chocado.gif')
         movie.setSpeed(500)
         label.setMovie(movie)
-        movie.start()
+        while True:
+            movie.start()
 
     def olhos(self):
         label = QLabel(self)
         movie = QMovie('espremendoolho.gif')
         movie.setSpeed(500)
         label.setMovie(movie)
-        movie.start()
+        while True:
+            movie.start()
 
     def pisca(self):
         label = QLabel(self)
