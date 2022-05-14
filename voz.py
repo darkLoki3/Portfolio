@@ -5,6 +5,7 @@ import subprocess
 import speech_recognition as sr
 from gtts import gTTS
 
+
 from Assistente.sensor import sensor
 
 
@@ -37,36 +38,33 @@ def get_audio():
         mic.adjust_for_ambient_noise(source, duration=0.5)
         mic.pause_threshold = 1
         audio = mic.listen(source, phrase_time_limit=3)
-        try:
-            escuta = mic.recognize_google(audio, language='pt-BR')
-            data = escuta.lower()
-        except sr.UnknownValueError:
-            fala("Não entendi, pode repetir")
-            return "None"
-        return data
-
-
+        
 if __name__ == '__main__':
-    """principal
-    """
-    while sensor() <= 60.0:
-        fala("Olá! Tudo bem com você?")
-        fala("Vamos ser amigos?")
-        frase = get_audio().lower()
-        match frase:
-            case 'pare' | 'tchau' | 'até mais' | 'não':
-                fala("Até mais tarde!")
-                break
-            case 'sim':
-                fala("Primeiro, me diga seu nome?")
-                continue
-            case 'marcos' | 'rafael' | 'augusto' | 'sabrina' | 'alexandra':
-                fala("Agora me conte quantos anos você tem?")
-                continue
-            case '5 anos' | '6 anos' | '7 anos' | '8 anos' | '9 anos':
-                fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
-                continue
-            case 'vamos':
-                fala("Então vamos lá:")
-                fala("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
-                break
+    """principal"""
+        if frase == 0:
+            continue
+        if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase) or 'não' in str(frase):
+            fala("Até mais tarde!")
+            break
+        if 'sim' in str(frase):
+            fala("Primeiro, me diga seu nome?")
+            continue
+        if 'marcos' in str(frase) or 'rafael' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
+            nome = frase
+            fala("Agora me conte quantos anos você tem?")
+            continue
+        if '5 anos' in str(frase) or '6 anos' in str(frase):
+            idade = frase.split(' anos')
+            fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+            continue
+        if 'vamos' in str(frase):
+            fala("Então vamos lá:")
+            fala("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
+        else:
+            print("Primeiro, me diga seu nome?")
+            print("Agora conte-me quantos anos você tem?")
+            print("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+            print("Então vamos lá:")
+            print("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
