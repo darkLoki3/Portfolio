@@ -1,66 +1,25 @@
-import sys
-
-from PySide6.QtGui import QIcon, QMovie
-from PySide6.QtWidgets import QApplication, QWidget, QLabel
+import pyglet
 
 
-class Window(QWidget):
-    def __init__(self):
-        super().__init__()
+animation = pyglet.image.load_animation('falando.gif')
+animation2 = pyglet.image.load_animation('dormindo.gif')
+animation3 = pyglet.image.load_animation('erro.gif')
+animSprite = pyglet.sprite.Sprite(animation)
 
-        self.setGeometry(800, 800, 480, 480)
-        self.setWindowTitle("Python GUI Window")
-        self.setWindowIcon(QIcon('erro.gif'))
-        self.dorme()
+w = animSprite.width
+h = animSprite.height
 
-    def falar(self):
-        label = QLabel(self)
-        movie = QMovie('falando.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        while True:
-            movie.start()
+window = pyglet.window.Window(width=w, height=h)
 
-    def dorme(self):
-        label = QLabel(self)
-        movie = QMovie('dormindo.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        while True:
-            movie.start()
+r, g, b, alpha = 0.5, 0.5, 0.8, 0.5
 
-    def choque(self):
-        label = QLabel(self)
-        movie = QMovie('chocado.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        while True:
-            movie.start()
-
-    def olhos(self):
-        label = QLabel(self)
-        movie = QMovie('espremendoolho.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        while True:
-            movie.start()
-
-    def pisca(self):
-        label = QLabel(self)
-        movie = QMovie('piscando.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        movie.start()
-
-    def error(self):
-        label = QLabel(self)
-        movie = QMovie('erro.gif')
-        movie.setSpeed(500)
-        label.setMovie(movie)
-        movie.start()
+pyglet.gl.glClearColor(r, g, b, alpha)
 
 
-app = QApplication([])
-window = Window()
-window.show()
-sys.exit(app.exec())
+@window.event
+def on_draw():
+    window.clear()
+    animSprite.draw()
+
+
+pyglet.app.run()
