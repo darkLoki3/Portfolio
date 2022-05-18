@@ -2,6 +2,8 @@ import pyglet
 
 
 animation = pyglet.image.load_animation('falando.gif')
+animation2 = pyglet.image.load_animation('dormindo.gif')
+animation3 = pyglet.image.load_animation('erro.gif')
 animSprite = pyglet.sprite.Sprite(animation)
 
 w = animSprite.width
