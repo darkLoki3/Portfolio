@@ -55,27 +55,34 @@ if __name__ == '__main__':
     """
     window.dorme()
     while sensor() <= 60.0:
-        fala("Olá! Tudo bem com você?")
-        fala("Vamos ser amigos?")
-        frase = get_audio().lower()
-        match frase:
-            case 'pare' | 'tchau' | 'até mais' | 'não':
-                fala("Até mais tarde!")
-                break
-            case 'sim':
-                fala("Primeiro, me diga seu nome?")
-                window.pisca()
-                continue
-            case 'marcos' | 'rafael' | 'augusto' | 'sabrina' | 'alexandra':
-                fala("Agora me conte quantos anos você tem?")
-                window.olhos()
-                continue
-            case '5 anos' | '6 anos' | '7 anos' | '8 anos' | '9 anos':
-                fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
-                window.choque()
-                continue
-            case 'vamos':
-                fala("Então vamos lá:")
-                fala("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
-                window.pisca()
-                break
+        if frase == 0:
+            continue
+        if 'pare' in str(frase) or 'tchau' in str(frase) or 'até mais' in str(frase) or 'não' in str(frase):
+            window.pisca()
+            fala("Até mais tarde!")
+            break
+        if 'sim' in str(frase):
+            fala("Primeiro, me diga seu nome?")
+            window.olhos()
+            window.pisca()
+            window.choque()
+            continue
+        if 'marcos' in str(frase) or 'rafael' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
+            nome = frase
+            fala("Agora me conte quantos anos você tem?")
+            continue
+        if '5 anos' in str(frase) or '6 anos' in str(frase):
+            idade = frase.split(" anos")
+            fala("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+            continue
+        if 'vamos' in str(frase):
+            fala("Então vamos lá:")
+            fala("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
+        else:
+            print("Primeiro, me diga seu nome?")
+            print("Agora conte-me quantos anos você tem?")
+            print("Que legal! Você quer fazer uma experiência comigo? Diga que vamos!")
+            print("Então vamos lá:")
+            print("Primeiro, eu quero que você ande bem devagarzinho neste tapete, que se encontra aqui no chão.")
+            break
