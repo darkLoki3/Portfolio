@@ -5,8 +5,10 @@ import subprocess
 import speech_recognition as sr
 from gtts import gTTS
 
-from Assistente.rosto.rosto import window
+from Assistente.rosto.rosto import Window
 from Assistente.sensor import sensor
+
+window = Window()
 
 
 def fala(resultado):
