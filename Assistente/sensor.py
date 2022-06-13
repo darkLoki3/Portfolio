@@ -16,7 +16,7 @@ def sensor():
 
         GPIO.output(GPIO_TRIG, GPIO.LOW)
 
-        print(" Aguardando o sensor estabilizar")
+        print("Aguardando o sensor estabilizar")
 
         time.sleep(2)
 
