@@ -18,7 +18,7 @@ pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ric
 
 engine.setProperty('voice', pt_br_voice_id)
 engine.setProperty('volume', 0.9)
-engine.setProperty('ratio', 155)
+engine.setProperty('ratio', 200)
 
 
 # def fala(resultado):
@@ -49,7 +49,7 @@ def get_audio():
 		print("Escutando...")
 		mic.adjust_for_ambient_noise(source, duration=0.5)
 		mic.pause_threshold = 1
-		audio = mic.listen(source, phrase_time_limit=3)
+		audio = mic.listen(source)
 		try:
 			escuta = mic.recognize_google(audio, language='pt-BR')
 			data = escuta.lower()
@@ -121,17 +121,20 @@ if __name__ == '__main__':
 	#                      'Maria Sophia', 'Maria Cecília', 'Luiz', 'Antonella', 'Jennifer', 'Betina', 'Mariah',
 	#                      'Sabrina']}
 	# idades = {'idade': = [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90}
-	
 	engine.say("Oi, eu sou o Doutor Kidy, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
 	engine.say("Diga o seu nome?")
 	engine.runAndWait()
 	frase = get_audio()
+	
 	while True:
+		
 		if frase == 0:
-			continue
-		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
+			pass
+		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(
+				frase) or 'adriana' in str(frase):
 			engine.say("Quantos anos você tem?")
 			engine.runAndWait()
+			frase = get_audio()
 			# window.olhos()
 			# window.pisca()
 			# window.choque()
@@ -140,6 +143,7 @@ if __name__ == '__main__':
 			engine.say("Você quer fazer uma experiência comigo?")
 			engine.say("Diga Sim ou Não.")
 			engine.runAndWait()
+			frase = get_audio()
 			continue
 		if 'sim' in str(frase):
 			engine.say("Então vamos lá,")
@@ -148,7 +152,7 @@ if __name__ == '__main__':
 			engine.say("Obrigado pela participação.")
 			engine.say("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças")
 			engine.runAndWait()
-			continue
+			break
 		if 'não' in str(frase):
 			engine.say("Ahh que pena, fica para próxima então!")
 			engine.say("Obrigado.")
