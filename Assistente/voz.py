@@ -21,6 +21,7 @@ engine.setProperty('volume', 0.9)
 engine.setProperty('ratio', 200)
 
 
+
 # def fala(resultado):
 # função fala
 #
@@ -49,7 +50,7 @@ def get_audio():
 		print("Escutando...")
 		mic.adjust_for_ambient_noise(source, duration=0.5)
 		mic.pause_threshold = 1
-		audio = mic.listen(source)
+
 		try:
 			escuta = mic.recognize_google(audio, language='pt-BR')
 			data = escuta.lower()
@@ -127,7 +128,6 @@ if __name__ == '__main__':
 	frase = get_audio()
 	
 	while True:
-		
 		if frase == 0:
 			pass
 		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(
