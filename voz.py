@@ -1,4 +1,6 @@
 # //{{fim da tarefa ||IA-10 do jira}}
+# import os
+# import subprocess
 import pyttsx3
 import speech_recognition as sr
 
@@ -153,3 +155,4 @@ if __name__ == '__main__':
 			engine.say("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças.")
 			engine.runAndWait()
 			break
+# acorde()
