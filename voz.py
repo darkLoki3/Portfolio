@@ -1,16 +1,9 @@
-# //{{fim da tarefa ||IA-10 do jira}}
-# import os
-# import subprocess
+# | fim da tarefa ||IA-10 do jira
 import pyttsx3
 import speech_recognition as sr
 
-# import pyaudio
-# from gtts import gTTS
-
 # from Assistente.rosto.rosto import Window
 # from Assistente.sensor import sensor
-
-# window = Window()
 
 engine = pyttsx3.init('sapi5')
 
@@ -18,25 +11,7 @@ pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ric
 
 engine.setProperty('voice', pt_br_voice_id)
 engine.setProperty('volume', 0.9)
-engine.setProperty('ratio', 155)
-
-
-# def fala(resultado):
-# função fala
-#
-# Args:
-#     resultado (string): pega o texto falado pelo microfone e converte em fala
-#
-# num = 0
-# print(resultado)
-# num += 1
-# response = gTTS(text=resultado, lang='pt-BR')
-# nomearquivo = str(num) + ".mp3"
-# response.save(nomearquivo)
-# subprocess.call("mpg123 " + nomearquivo, shell=False)
-# # window.falar()
-# print(str(nomearquivo))
-# os.remove(nomearquivo)
+engine.setProperty('ratio', 200 - 20)
 
 
 def get_audio():
@@ -46,7 +21,8 @@ def get_audio():
 	#     dicionário: configura o microfone e escuta o usuário
 	mic = sr.Recognizer()
 	with sr.Microphone() as source:
-		print("Escutando...")
+		engine.say("Estou ouvindo agora...")
+		engine.runAndWait()
 		mic.adjust_for_ambient_noise(source, duration=0.5)
 		mic.pause_threshold = 1
 		audio = mic.listen(source, phrase_time_limit=3)
@@ -55,6 +31,7 @@ def get_audio():
 			data = escuta.lower()
 		except sr.UnknownValueError:
 			engine.say("Não entendi, pode repetir?")
+			engine.runAndWait()
 			return "None"
 		return data
 
@@ -121,17 +98,19 @@ if __name__ == '__main__':
 	#                      'Maria Sophia', 'Maria Cecília', 'Luiz', 'Antonella', 'Jennifer', 'Betina', 'Mariah',
 	#                      'Sabrina']}
 	# idades = {'idade': = [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90}
-	
 	engine.say("Oi, eu sou o Doutor Kidy, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
 	engine.say("Diga o seu nome?")
 	engine.runAndWait()
 	frase = get_audio()
+	
 	while True:
 		if frase == 0:
-			continue
-		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
+			pass
+		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'felipe' in str(frase) or 'sabrina' in str(
+				frase) or 'adriana' in str(frase):
 			engine.say("Quantos anos você tem?")
 			engine.runAndWait()
+			frase = get_audio()
 			# window.olhos()
 			# window.pisca()
 			# window.choque()
@@ -140,6 +119,7 @@ if __name__ == '__main__':
 			engine.say("Você quer fazer uma experiência comigo?")
 			engine.say("Diga Sim ou Não.")
 			engine.runAndWait()
+			frase = get_audio()
 			continue
 		if 'sim' in str(frase):
 			engine.say("Então vamos lá,")
@@ -148,11 +128,10 @@ if __name__ == '__main__':
 			engine.say("Obrigado pela participação.")
 			engine.say("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças")
 			engine.runAndWait()
-			continue
+			break
 		if 'não' in str(frase):
 			engine.say("Ahh que pena, fica para próxima então!")
 			engine.say("Obrigado.")
 			engine.say("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças.")
 			engine.runAndWait()
 			break
-# acorde()
