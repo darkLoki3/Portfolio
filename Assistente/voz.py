@@ -130,7 +130,7 @@ if __name__ == '__main__':
 	while True:
 		if frase == 0:
 			pass
-		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(
+		if 'rudinei' in str(frase) or 'tetsuo' in str(frase) or 'felipe' in str(frase) or 'sabrina' in str(
 				frase) or 'adriana' in str(frase):
 			engine.say("Quantos anos você tem?")
 			engine.runAndWait()
@@ -159,4 +159,3 @@ if __name__ == '__main__':
 			engine.say("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças.")
 			engine.runAndWait()
 			break
-# acorde()
