@@ -1,16 +1,9 @@
 # | fim da tarefa ||IA-10 do jira}}
-# import os
-# import subprocess
 import pyttsx3
 import speech_recognition as sr
 
-# import pyaudio
-# from gtts import gTTS
-
 # from Assistente.rosto.rosto import Window
 # from Assistente.sensor import sensor
-
-# window = Window()
 
 engine = pyttsx3.init('sapi5')
 
@@ -18,26 +11,7 @@ pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ric
 
 engine.setProperty('voice', pt_br_voice_id)
 engine.setProperty('volume', 0.9)
-engine.setProperty('ratio', 200)
-
-
-
-# def fala(resultado):
-# função fala
-#
-# Args:
-#     resultado (string): pega o texto falado pelo microfone e converte em fala
-#
-# num = 0
-# print(resultado)
-# num += 1
-# response = gTTS(text=resultado, lang='pt-BR')
-# nomearquivo = str(num) + ".mp3"
-# response.save(nomearquivo)
-# subprocess.call("mpg123 " + nomearquivo, shell=False)
-# # window.falar()
-# print(str(nomearquivo))
-# os.remove(nomearquivo)
+engine.setProperty('ratio', 200 - 20)
 
 
 def get_audio():
@@ -47,49 +21,19 @@ def get_audio():
 	#     dicionário: configura o microfone e escuta o usuário
 	mic = sr.Recognizer()
 	with sr.Microphone() as source:
-		print("Escutando...")
+		engine.say("Estou ouvindo")
+		engine.runAndWait()
 		mic.adjust_for_ambient_noise(source, duration=0.5)
 		mic.pause_threshold = 1
-
+		audio = mic.listen(source, phrase_time_limit=3)
 		try:
 			escuta = mic.recognize_google(audio, language='pt-BR')
 			data = escuta.lower()
 		except sr.UnknownValueError:
 			engine.say("Não entendi, pode repetir?")
+			engine.runAndWait()
 			return "None"
 		return data
-
-
-# def acorde():
-# 	while sensor() <= 60.0:
-# 		fala("Oi, eu sou o Doutor Kidy, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
-# 		fala("Diga o seu nome?")
-# 		frase = get_audio()
-# 		if frase == 0:
-# 			continue
-# 		if 'sim' in str(frase):
-# 			fala("Quantos anos você tem?")
-# 			# window.olhos()
-# 			# window.pisca()
-# 			# window.choque()
-# 			continue
-# 		if 'marcos' in str(frase) or 'rafael' in str(frase) or 'augusto' in str(frase) or 'sabrina' in str(frase):
-# 			nome = frase
-# 			fala("Você quer fazer uma experiência comigo?")
-# 			fala("Diga Sim ou Não")
-# 			continue
-# 		if 'sim' in str(frase):
-# 			fala("Então vamos lá,")
-# 			fala("ande bem naturalmente sobre o tapete iluminado que está ao lado,")
-# 			fala("seguindo as instruções do nosso pessoal.")
-# 			fala("Obrigado pela participação.")
-# 			fala("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças")
-# 			continue
-# 		if 'não' in str(frase):
-# 			fala("Ahh que pena, fica para próxima então!")
-# 			fala("Obrigado.")
-# 			fala("A kidy está sempre preocupada em desenvolver o melhor calçado para as crianças.")
-# 			break
 
 
 if __name__ == '__main__':
