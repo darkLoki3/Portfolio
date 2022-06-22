@@ -5,20 +5,19 @@ import speech_recognition as sr
 # from Assistente.rosto.rosto import Window
 # from Assistente.sensor import sensor
 
-engine = pyttsx3.init('sapi5')
+engine = pyttsx3.init('sapi')
 
 pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ricardo RSI Harpo 22kHz"
 
 engine.setProperty('voice', pt_br_voice_id)
 engine.setProperty('volume', 0.9)
-engine.setProperty('ratio', 200 - 20)
+engine.setProperty('ratio', 200 - 30)
 
 
 def get_audio():
-	# get_audio
-	#
-	# Returns:
-	#     dicionário: configura o microfone e escuta o usuário
+	"""get_audio():
+	Returns:
+		Retorna o audio dito no microfone"""
 	mic = sr.Recognizer()
 	with sr.Microphone() as source:
 		engine.say("Estou ouvindo")
