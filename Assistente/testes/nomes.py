@@ -1,14 +1,7 @@
 import pandas as pd
-import pyttsx3
-import speech_recognition as sr
 
 pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ricardo RSI Harpo 22kHz"
 
-engine = pyttsx3.init()
-engine.setProperty('voice', pt_br_voice_id)
-engine.setProperty('volume', 1.)
-engine.setProperty('rate', 140)
-engine.runAndWait()
 df = pd.DataFrame(
     {
         'nomes': ["Miguel", "Davi", "Gabriel", "Arthur", "Lucas", "Matheus", "Pedro", "Guilherme", "Gustavo", "Rafael",
@@ -84,16 +77,6 @@ df = pd.DataFrame(
                   "Pedro Henrique Cardoso", "Juliana Fogaça", "João Gabriel Novaes", "Lara Mendes", "Pietro Teixeira",
                   "Helena Campos", "Vitor Hugo Souza", "Nicole Cardoso", "Bernardo Dias", "Luna Campos", "Abigail"],
     })
-# df['nomes'] = df['nomes'].str.lower()
-# print(df)
-#
-# nomedito = "abigail"
-#
-# if nomedito in df.values:
-#     print(nomedito)
-
-# df3 = df['nomes'].str.contains("miguel")
-# print(df3)
 
 df2 = pd.DataFrame(
     {
@@ -103,34 +86,7 @@ df2 = pd.DataFrame(
                   63., 64., 65., 66., 67., 68., 69., 70., 71., 72., 73., 74., 75., 76., 77., 78., 79., 80., 81., 82.,
                   83., 84., 85., 86., 87., 88., 89., 90., 91., 92., 93., 94., 95., 96., 97., 98., 99.]
     })
-# df2['idade'].to_string()
 print(type(df2))
 
-
-def get_audio():
-    """get_audio():
-    Returns:
-        Retorna o audio dito no microfone"""
-    mic = sr.Recognizer()
-    with sr.Microphone() as source:
-        # engine.say("Estou ouvindo")
-        # engine.runAndWait()
-        mic.adjust_for_ambient_noise(source, duration = 0.5)
-        mic.pause_threshold = 1
-        audio = mic.listen(source, phrase_time_limit = 3)
-        try:
-            escuta = mic.recognize_google(audio, language = 'pt-BR')
-            data = escuta.lower()
-        except sr.UnknownValueError:
-            print("Não entendi, pode repetir?")
-            return "None"
-
-        return data
-
-
-engine.say("Quantos anos você tem?")
-engine.runAndWait()
-idade = get_audio()
-ano = idade
-if float(ano) in df2.values:
-    print(float(ano))
+# if float(ano) in df2.values:
+#     print(float(ano))

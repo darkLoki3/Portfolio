@@ -31,13 +31,14 @@ def get_audio():
         # engine.runAndWait()
         mic.adjust_for_ambient_noise(source, duration = 0.5)
         mic.pause_threshold = 1
-        audio = mic.listen(source, phrase_time_limit = 3)
+        audio = mic.listen(source, phrase_time_limit = 0.5)
         try:
             escuta = mic.recognize_google(audio, language = 'pt-BR')
             data = escuta.lower()
-        except sr.UnknownValueError:
-            fala("Não entendi, pode repetir?")
-            get_audio()
+        except sr.UnknownValueError as e:
+            if e:
+                fala("Não entendi, pode repetir?")
+                get_audio()
 
         return data
 
@@ -178,7 +179,7 @@ if __name__ == '__main__':
             continue
         if 'sim' in str(frase):
             fala("Então vamos lá,")
-            fala("ande bem naturalmente sobre o tapete iluminado que está ao lado,")
+            fala("ande naturalmente sobre o tapete iluminado que está ao lado,")
             fala("seguindo as instruções do nosso pessoal.")
             fala("Obrigado pela participação.")
             fala("A kids está sempre preocupada em desenvolver o melhor calçado para as crianças")
