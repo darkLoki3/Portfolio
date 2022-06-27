@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="PythonCore" />
+    <plugin id="com.pinkfloyded.idea-file-path-autocomplete.idea-file-path-autocomplete" />
+    <plugin id="com.vermouthx.idea" />
+    <plugin id="commit-template-idea-plugin" />
+    <plugin id="zielu.gittoolbox" />
+  </component>
+</project>
