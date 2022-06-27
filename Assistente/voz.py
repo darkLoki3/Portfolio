@@ -37,7 +37,7 @@ def get_audio():
             data = escuta.lower()
         except sr.UnknownValueError:
             fala("Não entendi, pode repetir?")
-            return "None"
+            get_audio()
 
         return data
 
@@ -140,7 +140,7 @@ if __name__ == '__main__':
                       "Pedro Henrique Cardoso", "Juliana Fogaça", "João Gabriel Novaes", "Lara Mendes",
                       "Pietro Teixeira",
                       "Helena Campos", "Vitor Hugo Souza", "Nicole Cardoso", "Bernardo Dias", "Luna Campos", "Abigail",
-                      "Rudnei", "Tetsuo"],
+                      "Rodinei", "Tetsuo", "Adriana", "Alexandra", "Soldi", "Valdir"],
         })
     df['nomes'] = df['nomes'].str.lower()
     df2 = pd.DataFrame(
