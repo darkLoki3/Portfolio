@@ -6,7 +6,7 @@ import speech_recognition as sr
 # from Assistente.rosto.rosto import Window
 # from Assistente.sensor import sensor
 
-engine = pyttsx3.init()
+engine = pyttsx3.init('sapi5')
 
 pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ricardo RSI Harpo 22kHz"
 
@@ -25,20 +25,19 @@ def get_audio():
     """get_audio():
     Returns:
         Retorna o audio dito no microfone"""
+    data = ""
     mic = sr.Recognizer()
     with sr.Microphone() as source:
         # engine.say("Estou ouvindo")
         # engine.runAndWait()
         mic.adjust_for_ambient_noise(source, duration = 0.5)
-        mic.pause_threshold = 1
-        audio = mic.listen(source, phrase_time_limit = 0.5)
+        audio = mic.listen(source, timeout = 9, phrase_time_limit = 0.9)
         try:
             escuta = mic.recognize_google(audio, language = 'pt-BR')
             data = escuta.lower()
-        except sr.UnknownValueError as e:
-            if e:
-                fala("Não entendi, pode repetir?")
-                get_audio()
+        except sr.UnknownValueError:
+            fala("Não entendi, pode repetir?")
+            get_audio()
 
         return data
 
