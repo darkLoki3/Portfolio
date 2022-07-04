@@ -2,18 +2,18 @@
 # import pyttsx3
 # import requests
 # import speech_recognition as sr
-
-# response = requests.get('https://httpbin.org/ip')
 #
-# print('Seu IP é {0}'.format(response.json()['origin']))
-
+# # response = requests.get('https://httpbin.org/ip')
+# #
+# # print('Seu IP é {0}'.format(response.json()['origin']))
+#
 # engine = pyttsx3.init('sapi5')
 #
 # pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ricardo RSI Harpo 22kHz"
 #
 # engine.setProperty('voice', pt_br_voice_id)
 # engine.setProperty('volume', 1.)
-# engine.setProperty('rate', 140)
+# engine.setProperty('rate', 120)
 # engine.runAndWait()
 #
 #
@@ -29,14 +29,14 @@
 #     mic = sr.Recognizer()
 #     with sr.Microphone() as source:
 #         mic.adjust_for_ambient_noise(source)
-#         mic.pause_threshold = 1
-#         audio = mic.listen(source, phrase_time_limit = 0.9)
+#         mic.pause_threshold = 0.8
+#         audio = mic.listen(source)
 #         try:
 #             escuta = mic.recognize_google(audio, language = 'pt-BR')
 #             data = escuta.lower()
 #         except sr.UnknownValueError:
 #             fala("Não entendi, pode repetir?")
-#             return "None"
+#             return "none"
 #
 #         return data
 #
@@ -187,3 +187,7 @@
 #             fala("Obrigado.")
 #             fala("A kids está sempre preocupada em desenvolver o melhor calçado para as crianças.")
 #             break
+import win32com.client as wincl
+
+speak = wincl.Dispatch("SAPI.SpVoice")
+speak.Speak("Olá")

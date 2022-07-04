@@ -2,17 +2,22 @@
 import pandas as pd
 import pyttsx3
 import speech_recognition as sr
+import winsound
 
 # from Assistente.rosto.rosto import Window
 # from Assistente.sensor import sensor
 
+# configuração da voz e driver usado
 engine = pyttsx3.init('sapi5')
 
 pt_br_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Ricardo RSI Harpo 22kHz"
-
+# configuração da voz masculina
 engine.setProperty('voice', pt_br_voice_id)
+# configuração do volume do microfone
 engine.setProperty('volume', 1.)
+# configuração da velocidade da fala
 engine.setProperty('rate', 140)
+# Arruma a configuração desejada
 engine.runAndWait()
 
 
@@ -25,21 +30,22 @@ def get_audio():
     """get_audio():
     Returns:
         Retorna o audio dito no microfone"""
-    data = ""
-    mic = sr.Recognizer()
-    with sr.Microphone() as source:
+    r = sr.Recognizer()
+    mic = sr.Microphone()
+    winsound.Beep(440, 500)
+    with mic as source:
         # engine.say("Estou ouvindo")
         # engine.runAndWait()
-        mic.adjust_for_ambient_noise(source, duration = 0.5)
-        audio = mic.listen(source, timeout = 9, phrase_time_limit = 0.9)
+        r.adjust_for_ambient_noise(source, duration = 0.5)
+        audio = r.listen(source, timeout = 9, phrase_time_limit = 0.9)
         try:
-            escuta = mic.recognize_google(audio, language = 'pt-BR')
+            escuta = r.recognize_google(audio, language = 'pt-BR')
             data = escuta.lower()
         except sr.UnknownValueError:
             fala("Não entendi, pode repetir?")
             get_audio()
-
-        return data
+        else:
+            return data
 
 
 if __name__ == '__main__':
