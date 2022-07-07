@@ -166,11 +166,11 @@ if __name__ == '__main__':
                       '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98',
                       '99']
         })
+    fala("Oi, eu sou o Doutor Kids, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
+    fala("Diga o seu nome?")
+    frase = get_audio()
 
     while True:
-        fala("Oi, eu sou o Doutor Kids, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
-        fala("Diga o seu nome?")
-        frase = get_audio()
         if frase == 0:
             continue
         if str(frase) in df.values:
