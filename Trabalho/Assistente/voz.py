@@ -206,6 +206,7 @@ if __name__ == '__main__':
         fala("Oi, eu sou o Doutor Kids, fui criado para te ajudar a escolher a palmilha ideal para seu pezinho")
         fala("Diga o seu nome?")
         frase = get_audio()
+        print(frase)
 
         while True:
             if frase == 0:
@@ -213,11 +214,13 @@ if __name__ == '__main__':
             if str(frase) in df.values:
                 fala("Quantos anos você tem?")
                 frase = get_audio()
+                print(frase)
                 continue
             if str(frase) in df2.values:
                 fala("Você quer fazer uma experiência comigo?")
                 fala("Diga Sim ou Não.")
                 frase = get_audio()
+                print(frase)
                 continue
             if 'sim' in str(frase):
                 fala("Então vamos lá,")
